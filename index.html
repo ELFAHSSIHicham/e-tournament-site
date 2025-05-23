@@ -22,6 +22,9 @@
     body, html {
       height: 100%;
       font-family: Arial, sans-serif;
+      position: relative;
+      padding-bottom: 40px; /* pour laisser place au footer */
+      min-height: 100vh;
     }
 
     .title {
@@ -112,9 +115,27 @@
       text-align: center;
     }
 
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #111;
+      color: #aaa;
+      text-align: center;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      font-style: italic;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.7);
+      z-index: 20;
+      user-select: none;
+    }
+
     @media (max-width: 768px) {
       .container {
         flex-direction: column;
+        height: auto;
+        min-height: calc(100vh - 40px);
       }
 
       .left, .right {
@@ -138,8 +159,8 @@
     <div class="left">
       <form id="marioForm">
         <h2>Mario Kart</h2>
-        <input type="text" name="NOM_MARIO_KART" placeholder="Nom" required />
-        <input type="text" name="PRENOM_MARIO_KART" placeholder="Prénom" required />
+        <input type="text" name="NOM_MARIO_KART" placeholder="Nom" required pattern="^[A-Za-zÀ-ÿ\-]+$" title="Seules les lettres et les tirets sont autorisés" />
+        <input type="text" name="PRENOM_MARIO_KART" placeholder="Prénom" required pattern="^[A-Za-zÀ-ÿ\-]+$" title="Seules les lettres et les tirets sont autorisés" />
         <button type="submit">Envoyer</button>
         <div id="successMario" class="success-message" style="display:none;">Inscription prise en compte ✅</div>
       </form>
@@ -149,8 +170,8 @@
     <div class="right">
       <form id="brawForm">
         <h2>Brawlhalla</h2>
-        <input type="text" name="NOM_BRAWLHALA" placeholder="Nom" required />
-        <input type="text" name="PRENOM_BRAWLHALA" placeholder="Prénom" required />
+        <input type="text" name="NOM_BRAWLHALA" placeholder="Nom" required pattern="^[A-Za-zÀ-ÿ\-]+$" title="Seules les lettres et les tirets sont autorisés" />
+        <input type="text" name="PRENOM_BRAWLHALA" placeholder="Prénom" required pattern="^[A-Za-zÀ-ÿ\-]+$" title="Seules les lettres et les tirets sont autorisés" />
 
         <select name="mode" id="modeSelect" required>
           <option value="random">Duo Aléatoire</option>
@@ -158,7 +179,13 @@
         </select>
 
         <div id="messageBox">
-          <textarea name="NOM_PRENOM_DUO" placeholder="Écrivez le nom et prénom de votre duo..."></textarea>
+          <textarea 
+            name="NOM_PRENOM_DUO" 
+            placeholder="Écrivez le nom et prénom de votre duo..." 
+            pattern="^[A-Za-zÀ-ÿ\-\s]+$" 
+            title="Seules les lettres, espaces et tirets sont autorisés"
+            required
+            ></textarea>
         </div>
 
         <button type="submit">Envoyer</button>
@@ -167,12 +194,29 @@
     </div>
   </div>
 
+  <footer>
+    Ce projet a été développé avec le soutien d’une intelligence artificielle, garantissant qualité et efficacité dans sa réalisation.
+  </footer>
+
   <script>
     const modeSelect = document.getElementById('modeSelect');
     const messageBox = document.getElementById('messageBox');
 
     modeSelect.addEventListener('change', () => {
       messageBox.style.display = (modeSelect.value === 'duo') ? 'flex' : 'none';
+    });
+
+    // Bloquer en temps réel la saisie de chiffres et caractères interdits dans tous les inputs texte
+    document.querySelectorAll('input[type="text"]').forEach(input => {
+      input.addEventListener('input', () => {
+        input.value = input.value.replace(/[^A-Za-zÀ-ÿ\-]/g, '');
+      });
+    });
+
+    // Bloquer en temps réel la saisie interdite dans textarea duo (lettres, espaces et tirets autorisés)
+    const duoTextarea = document.querySelector('textarea[name="NOM_PRENOM_DUO"]');
+    duoTextarea.addEventListener('input', () => {
+      duoTextarea.value = duoTextarea.value.replace(/[^A-Za-zÀ-ÿ\-\s]/g, '');
     });
 
     // Fonction pour envoyer les données à Formspree
