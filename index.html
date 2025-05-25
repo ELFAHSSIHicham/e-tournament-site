@@ -8,11 +8,21 @@
 -->
 <html lang="fr">
 <head>
-  
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Brawlhalla vs Mario Kart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#111" />
+
+  <title>E-Tournament IUT 2025 | Mario Kart vs Brawlhalla</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
   <style>
+    :root {
+      --mario-blue: #00a8f3;
+      --mario-red: #e4002b;
+      --brawl-orange: #ff6b00;
+      --brawl-purple: #6a00f4;
+      --text-glow: 0 0 10px currentColor;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -21,33 +31,58 @@
 
     body, html {
       height: 100%;
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       position: relative;
-      padding-bottom: 40px; /* pour laisser place au footer */
       min-height: 100vh;
+      overflow-x: hidden;
+      background: #111;
+      -webkit-text-size-adjust: 100%;
     }
 
     .title {
       position: absolute;
-      top: 70px;
+      top: 20px;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 3.5rem;
-      font-weight: bold;
-      color: #00ffff;
-      text-shadow: 3px 3px 10px black, 0 0 15px #00ffff;
+      font-size: clamp(1.5rem, 5vw, 3.5rem);
+      font-weight: 800;
+      color: #fff;
+      text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 3px 3px 0 #000;
       z-index: 10;
-      white-space: nowrap;
+      text-align: center;
+      animation: pulse 2s infinite alternate;
+      width: 90%;
+      white-space: normal;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      position: absolute;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: clamp(0.8rem, 2vw, 1.5rem);
+      color: #fff;
+      text-shadow: 0 0 5px #fff;
+      z-index: 10;
+      text-align: center;
+      font-style: italic;
+      width: 90%;
+      line-height: 1.3;
     }
 
     .container {
       display: flex;
-      height: 100vh;
+      flex-direction: column;
+      min-height: 100vh;
+      position: relative;
+      padding-top: clamp(80px, 20vw, 120px);
+      padding-bottom: 0;
     }
 
     .left, .right {
       flex: 1;
-      padding: 2rem;
+      padding: 1.5rem;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -56,176 +91,508 @@
       background-size: cover;
       background-position: center;
       position: relative;
+      transition: all 0.3s ease;
+      overflow: hidden;
+      min-height: 50vh;
     }
 
     .left {
-      background-image: url('https://www.nintendo.com/eu/media/images/10_share_images/games_15/nintendo_switch_4/H2x1_NSwitch_MarioKart8Deluxe_image1600w.jpg');
+      background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url('https://www.nintendo.com/eu/media/images/10_share_images/games_15/nintendo_switch_4/H2x1_NSwitch_MarioKart8Deluxe_image1600w.jpg');
     }
 
     .right {
-      background-image: url('https://w0.peakpx.com/wallpaper/526/284/HD-wallpaper-brawlhalla-video-game.jpg');
-      background-position: center;
+      background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url('https://w0.peakpx.com/wallpaper/526/284/HD-wallpaper-brawlhalla-video-game.jpg');
+    }
+
+    .left::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--mario-blue), var(--mario-red));
+      z-index: 5;
+    }
+
+    .right::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--brawl-orange), var(--brawl-purple));
+      z-index: 5;
     }
 
     form {
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 1rem;
-      border-radius: 10px;
-      width: 80%;
-      max-width: 400px;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 1.5rem;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 450px;
       display: flex;
       flex-direction: column;
       gap: 1rem;
       z-index: 2;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(5px);
+    }
+
+    form h2 {
+      text-align: center;
+      margin-bottom: 0.8rem;
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      padding-bottom: 8px;
+    }
+
+    .left form h2 {
+      color: var(--mario-red);
+      text-shadow: var(--text-glow);
+    }
+
+    .right form h2 {
+      color: var(--brawl-orange);
+      text-shadow: var(--text-glow);
+    }
+
+    form h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 25%;
+      right: 25%;
+      height: 2px;
+      border-radius: 2px;
+    }
+
+    .left form h2::after {
+      background: linear-gradient(90deg, var(--mario-blue), var(--mario-red));
+    }
+
+    .right form h2::after {
+      background: linear-gradient(90deg, var(--brawl-orange), var(--brawl-purple));
+    }
+
+    .form-group {
+      position: relative;
+      margin-bottom: 1rem;
     }
 
     input, select, textarea, button {
-      padding: 0.5rem;
-      font-size: 1rem;
-      border-radius: 5px;
+      width: 100%;
+      padding: 0.8rem;
+      font-size: 0.9rem;
+      border-radius: 6px;
       border: none;
+      transition: all 0.3s ease;
+      background-color: rgba(255,255,255,0.9);
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      box-shadow: 0 0 8px rgba(255,255,255,0.5);
+      transform: translateY(-2px);
+    }
+
+    .left input:focus, .left select:focus, .left textarea:focus {
+      box-shadow: 0 0 8px var(--mario-blue);
+    }
+
+    .right input:focus, .right select:focus, .right textarea:focus {
+      box-shadow: 0 0 8px var(--brawl-orange);
     }
 
     button {
-      background-color: #ff9900;
+      background: linear-gradient(45deg, #ff9900, #ff6600);
       color: white;
       cursor: pointer;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 0.8rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      border: none;
+      font-size: 0.9rem;
+    }
+
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(255, 153, 0, 0.4);
+    }
+
+    button:active {
+      transform: translateY(1px);
     }
 
     #messageBox {
       display: none;
       flex-direction: column;
       gap: 0.5rem;
-    }
-
-    .right::before, .left::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.3);
-      z-index: 1;
+      animation: fadeIn 0.5s ease;
     }
 
     .success-message {
       color: #00ff99;
       font-weight: bold;
       text-align: center;
+      padding: 0.8rem;
+      border-radius: 6px;
+      background-color: rgba(0, 255, 153, 0.1);
+      border: 1px solid #00ff99;
+      animation: fadeIn 0.5s ease;
+      font-size: 0.9rem;
+    }
+
+    .particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      background-color: rgba(255,255,255,0.5);
+      border-radius: 50%;
+      pointer-events: none;
     }
 
     footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background-color: #111;
+      position: static;
+      margin-top: auto;
+      background: linear-gradient(to bottom, transparent, rgba(17,17,17,0.9) 20%);
       color: #aaa;
       text-align: center;
-      padding: 0.5rem 1rem;
-      font-size: 0.9rem;
+      padding: 0.6rem 1rem;
+      font-size: 0.8rem;
       font-style: italic;
-      box-shadow: 0 -2px 5px rgba(0,0,0,0.7);
       z-index: 20;
       user-select: none;
+      backdrop-filter: blur(5px);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      line-height: 1.4;
     }
 
-    @media (max-width: 768px) {
+    footer a {
+      color: #ff9900;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    footer a:hover {
+      color: #ff6600;
+      text-shadow: 0 0 5px #ff9900;
+    }
+
+    /* Animations */
+    @keyframes pulse {
+      0% { transform: translateX(-50%) scale(1); }
+      100% { transform: translateX(-50%) scale(1.05); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes gentlePress {
+      0% { transform: scale(1); }
+      50% { transform: scale(0.95); }
+      100% { transform: scale(1); }
+    }
+
+    /* Effets spéciaux */
+    .confetti {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background-color: #f00;
+      opacity: 0;
+      z-index: 9999;
+      animation: confetti-fall 3s ease-in-out forwards;
+    }
+
+    @keyframes confetti-fall {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Version desktop */
+    @media (min-width: 769px) {
       .container {
-        flex-direction: column;
-        height: auto;
-        min-height: calc(100vh - 40px);
+        flex-direction: row;
+        padding-top: 0;
+        padding-bottom: 0;
       }
 
       .left, .right {
-        width: 100%;
-        height: 50vh;
-        padding: 1rem;
+        height: 100vh;
+        padding: 2rem;
+        min-height: auto;
+      }
+
+      .left:hover, .right:hover {
+        flex: 1.2;
       }
 
       .title {
+        top: 30px;
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        white-space: nowrap;
+      }
+
+      .subtitle {
+        top: 90px;
+        font-size: clamp(1rem, 2vw, 1.5rem);
+      }
+
+      form {
+        padding: 2rem;
+        gap: 1.5rem;
+      }
+
+      form h2 {
         font-size: 2rem;
-        top: 20px;
+        margin-bottom: 1rem;
+      }
+
+      input, select, textarea, button {
+        padding: 1rem;
+        font-size: 1rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      button {
+        margin-top: 1rem;
+      }
+
+      .success-message {
+        padding: 1rem;
+        font-size: 1rem;
+      }
+    }
+
+    /* Petits téléphones */
+    @media (max-width: 400px) {
+      .title {
+        font-size: 1.3rem;
+        top: 15px;
+      }
+
+      .subtitle {
+        font-size: 0.7rem;
+        top: 65px;
+      }
+
+      form {
+        padding: 1rem;
+      }
+
+      form h2 {
+        font-size: 1.2rem;
+      }
+
+      input, select, textarea, button {
+        padding: 0.7rem;
+        font-size: 0.8rem;
       }
     }
   </style>
 </head>
 <body>
   <div class="title">E-Tournament IUT 2025</div>
+  <div class="subtitle">Inscriptions ouvertes pour les tournois</div>
 
   <div class="container">
     <!-- Formulaire Mario Kart -->
     <div class="left">
+      <div class="particles" id="marioParticles"></div>
       <form id="marioForm">
         <h2>Mario Kart</h2>
-        <input type="text" name="NOM_MARIO_KART" placeholder="Nom" required pattern="^[A-Za-zÀ-ÿ\-]+$" title="Seules les lettres et les tirets sont autorisés" />
-        <input type="text" name="PRENOM_MARIO_KART" placeholder="Prénom" required pattern="^[A-Za-zÀ-ÿ\-]+$" title="Seules les lettres et les tirets sont autorisés" />
-        <button type="submit">Envoyer</button>
-        <div id="successMario" class="success-message" style="display:none;">Inscription prise en compte ✅</div>
+        <div class="form-group">
+          <input type="text" name="NOM_MARIO_KART" placeholder="Nom" required pattern="^[A-Za-zÀ-ÿ\-]+$" title="Seules les lettres et les tirets sont autorisés" />
+        </div>
+        <div class="form-group">
+          <input type="text" name="PRENOM_MARIO_KART" placeholder="Prénom" required pattern="^[A-Za-zÀ-ÿ\-]+$" title="Seules les lettres et les tirets sont autorisés" />
+        </div>
+        <button type="submit">S'INSCRIRE</button>
+        <div id="successMario" class="success-message" style="display:none;">Inscription validée ! 🎮</div>
       </form>
     </div>
 
     <!-- Formulaire Brawlhalla -->
     <div class="right">
+      <div class="particles" id="brawlParticles"></div>
       <form id="brawForm">
         <h2>Brawlhalla</h2>
-        <input type="text" name="NOM_BRAWLHALA" placeholder="Nom" required pattern="^[A-Za-zÀ-ÿ\-]+$" title="Seules les lettres et les tirets sont autorisés" />
-        <input type="text" name="PRENOM_BRAWLHALA" placeholder="Prénom" required pattern="^[A-Za-zÀ-ÿ\-]+$" title="Seules les lettres et les tirets sont autorisés" />
+        <div class="form-group">
+          <input type="text" name="NOM_BRAWLHALA" placeholder="Nom" required pattern="^[A-Za-zÀ-ÿ\-]+$" title="Seules les lettres et les tirets sont autorisés" />
+        </div>
+        <div class="form-group">
+          <input type="text" name="PRENOM_BRAWLHALA" placeholder="Prénom" required pattern="^[A-Za-zÀ-ÿ\-]+$" title="Seules les lettres et les tirets sont autorisés" />
+        </div>
 
-        <select name="mode" id="modeSelect" required>
-          <option value="random">Duo Aléatoire</option>
-          <option value="duo">Choisir son Duo</option>
-        </select>
+        <div class="form-group">
+          <select name="mode" id="modeSelect" required>
+            <option value="" disabled selected>Choisissez votre mode</option>
+            <option value="random">Duo Aléatoire</option>
+            <option value="duo">Choisir son Duo</option>
+          </select>
+        </div>
 
         <div id="messageBox">
           <textarea 
             name="NOM_PRENOM_DUO" 
-            placeholder="Écrivez le nom et prénom de votre duo..." 
+            placeholder="Nom et prénom de votre partenaire..." 
             pattern="^[A-Za-zÀ-ÿ\-\s]+$" 
             title="Seules les lettres, espaces et tirets sont autorisés"
-            required
-            ></textarea>
+            rows="3"></textarea>
         </div>
 
-        <button type="submit">Envoyer</button>
-        <div id="successBrawl" class="success-message" style="display:none;">Inscription prise en compte ✅</div>
+        <button type="submit">S'INSCRIRE</button>
+        <div id="successBrawl" class="success-message" style="display:none;">Inscription validée ! ⚔️</div>
       </form>
     </div>
   </div>
 
   <footer>
-    Ce projet a été développé avec le soutien d’une intelligence artificielle, garantissant qualité et efficacité dans sa réalisation.
+   Ce projet a été développé avec le soutien d'une intelligence artificielle, garantissant qualité et efficacité dans sa réalisation | © IUT 2025
   </footer>
 
   <script>
+    // Animation des particules
+    function createParticles(containerId, count, colors) {
+      const container = document.getElementById(containerId);
+      for (let i = 0; i < count; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Position aléatoire
+        const posX = Math.random() * 100;
+        const posY = Math.random() * 100;
+        
+        // Taille aléatoire
+        const size = Math.random() * 3 + 2;
+        
+        // Couleur aléatoire parmi celles fournies
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        
+        // Animation aléatoire
+        const duration = Math.random() * 10 + 5;
+        const delay = Math.random() * 5;
+        
+        particle.style.left = `${posX}%`;
+        particle.style.top = `${posY}%`;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.backgroundColor = color;
+        particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+        
+        container.appendChild(particle);
+      }
+    }
+
+    // Créer des particules avec les couleurs thématiques
+    createParticles('marioParticles', 20, ['#00a8f3', '#e4002b', '#ffcc00', '#ffffff']);
+    createParticles('brawlParticles', 20, ['#ff6b00', '#6a00f4', '#ffcc00', '#ffffff']);
+
+    // Gestion du select pour le mode de jeu
     const modeSelect = document.getElementById('modeSelect');
     const messageBox = document.getElementById('messageBox');
+    const partnerField = document.querySelector('textarea[name="NOM_PRENOM_DUO"]');
 
     modeSelect.addEventListener('change', () => {
-      messageBox.style.display = (modeSelect.value === 'duo') ? 'flex' : 'none';
+      if (modeSelect.value === 'duo') {
+        messageBox.style.display = 'flex';
+        messageBox.classList.add('animate__fadeIn');
+        partnerField.setAttribute('required', '');
+      } else {
+        messageBox.style.display = 'none';
+        partnerField.removeAttribute('required');
+      }
     });
 
-    // Bloquer en temps réel la saisie de chiffres et caractères interdits dans tous les inputs texte
+    // Validation en temps réel des champs
     document.querySelectorAll('input[type="text"]').forEach(input => {
       input.addEventListener('input', () => {
         input.value = input.value.replace(/[^A-Za-zÀ-ÿ\-]/g, '');
       });
     });
 
-    // Bloquer en temps réel la saisie interdite dans textarea duo (lettres, espaces et tirets autorisés)
-    const duoTextarea = document.querySelector('textarea[name="NOM_PRENOM_DUO"]');
-    duoTextarea.addEventListener('input', () => {
-      duoTextarea.value = duoTextarea.value.replace(/[^A-Za-zÀ-ÿ\-\s]/g, '');
+    document.querySelector('textarea[name="NOM_PRENOM_DUO"]').addEventListener('input', function() {
+      this.value = this.value.replace(/[^A-Za-zÀ-ÿ\-\s]/g, '');
     });
 
-    // Fonction pour envoyer les données à Formspree
+    // Confettis
+    function createConfetti() {
+      const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+      for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = `${Math.random() * 100}vw`;
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.width = `${Math.random() * 8 + 3}px`;
+        confetti.style.height = `${Math.random() * 8 + 3}px`;
+        document.body.appendChild(confetti);
+        
+        // Supprimer après l'animation
+        setTimeout(() => {
+          confetti.remove();
+        }, 3000);
+      }
+    }
+
+    // Envoi des formulaires
     async function sendForm(formId, successId) {
       const form = document.getElementById(formId);
       const successMessage = document.getElementById(successId);
+      const submitBtn = form.querySelector('button[type="submit"]');
 
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
+        
+        // Nouvelle animation plus subtile
+        submitBtn.style.animation = 'gentlePress 0.3s ease';
+        setTimeout(() => {
+          submitBtn.style.animation = '';
+        }, 300);
+
+        // Pour Brawlhalla, on supprime le champ partenaire si mode aléatoire
+        if (formId === "brawForm" && modeSelect.value === 'random') {
+          const partnerField = form.querySelector('textarea[name="NOM_PRENOM_DUO"]');
+          if (partnerField) {
+            partnerField.removeAttribute('name'); // Empêche l'envoi du champ
+          }
+        }
 
         const formData = new FormData(form);
 
@@ -240,19 +607,48 @@
 
           if (response.ok) {
             successMessage.style.display = "block";
+            createConfetti();
             form.reset();
-            if (formId === "brawForm") messageBox.style.display = "none";
+            if (formId === "brawForm") {
+              messageBox.style.display = "none";
+              // On remet le name au champ partenaire après envoi
+              const partnerField = form.querySelector('textarea[name="NOM_PRENOM_DUO"]');
+              if (partnerField) {
+                partnerField.setAttribute('name', 'NOM_PRENOM_DUO');
+              }
+            }
+            
+            // Cacher le message après 5 secondes
+            setTimeout(() => {
+              successMessage.style.display = "none";
+            }, 5000);
           } else {
-            alert("Erreur lors de l'envoi du formulaire.");
+            alert("Erreur lors de l'envoi du formulaire. Veuillez réessayer.");
           }
         } catch (error) {
-          alert("Erreur de connexion.");
+          alert("Erreur de connexion. Vérifiez votre connexion internet.");
         }
       });
     }
 
     sendForm("marioForm", "successMario");
     sendForm("brawForm", "successBrawl");
+
+    // Désactiver le zoom sur les champs de formulaire sur mobile
+    document.addEventListener('DOMContentLoaded', function() {
+      let viewport = document.querySelector('meta[name="viewport"]');
+      
+      function preventZoom() {
+        viewport.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+        setTimeout(function() {
+          viewport.content = 'width=device-width, initial-scale=1.0';
+        }, 500);
+      }
+      
+      document.querySelectorAll('input, select, textarea').forEach(function(field) {
+        field.addEventListener('focus', preventZoom);
+      });
+    });
   </script>
 </body>
 </html>
